@@ -73,6 +73,44 @@ def create_contact(contacts)
   contacts << new_contact
 end
 
+def edit_contact(contacts, id)
+
+  contact_to_edit = contacts.detect { |contact| contact[:id] == id }
+
+  if contact_to_edit
+    index = contacts.index(contact_to_edit)
+
+    print "Ingrese el nombre: "
+    name = gets.chomp
+    print "Ingrese el telefono: "
+    phone = gets.chomp
+    print "Ingrese el correo: "
+    mail = gets.chomp
+    print "Ingrese sexo (M o F): "
+    gender = gets.chomp
+
+    contact_to_edit = { id: id, name: name, phone: phone, mail: mail, gender: gender }
+
+    contacts[index] = contact_to_edit
+
+    puts "El contacto ha sido editado con éxito!"
+    print_contact(contact_to_edit)
+  else
+    puts "El contacto que deseas editar no existe!"
+  end
+  contacts
+end
+
+def print_contact(contact)
+  puts "
+    ID: #{contact[:id]}
+    Nombre: #{contact[:name]}
+    Telefono: #{contact[:phone]}
+    Correo: #{contact[:mail]}
+    Sexo: #{contact[:gender]}
+  "
+end
+
 option = 0
 contacts = [ ]
 
@@ -95,14 +133,19 @@ while option != 5
     contacts = create_contact(contacts)
 
     puts "El contacto ha sido creado con éxito!"
-    puts "
-      Nombre: #{contacts.last[:name]}
-      Telefono: #{contacts.last[:phone]}
-      Correo: #{contacts.last[:mail]}
-      Sexo: #{contacts.last[:gender]}
-    "
+    print_contact(contacts.last)
   when 3
-    puts "Vamos a editar un nuevo contacto"
+    puts "Opción 3: Editar contacto"
+
+    contacts.each do |contact|
+      print_contact(contact)
+    end
+
+    print "Ingrese el ID del contacto que desea editar: "
+    id = gets.chomp.to_i
+
+    contacts = edit_contact(contacts, id)
+
   when 4
     puts "Vamos a eliminar un nuevo contacto"
   when 5
