@@ -112,7 +112,11 @@ def print_contact(contact)
 end
 
 option = 0
-contacts = [ ]
+contacts = [
+  { id: 1, name: 'Sebastian', phone: 987654321, mail: 'sebas@correo.com', gender: 'M'},
+  { id: 2, name: 'Andres', phone: 123456789, mail: 'andres@correo.com', gender: 'M'},
+  { id: 3, name: 'Angelica', phone: 678912345, mail: 'angelica@correo.com', gender: 'F'}
+]
 
 while option != 5
   puts "
