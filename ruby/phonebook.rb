@@ -101,6 +101,25 @@ def edit_contact(contacts, id)
   contacts
 end
 
+def destroy_contact(contacts, id)
+  contact_to_destroy = contacts.detect { |contact| contact[:id] == id }
+
+  if contact_to_destroy
+    contacts.delete_if { |contact| contact[:id] == id }
+    puts "El contacto ha sido eliminado con éxito!"
+
+    print_phonebook(contacts)
+  else
+    puts "El contacto que deseas eliminar no existe!"
+  end
+end
+
+def print_phonebook(contacts)
+  contacts.each do |contact|
+    print_contact(contact)
+  end
+end
+
 def print_contact(contact)
   puts "
     ID: #{contact[:id]}
@@ -140,10 +159,7 @@ while option != 5
     print_contact(contacts.last)
   when 3
     puts "Opción 3: Editar contacto"
-
-    contacts.each do |contact|
-      print_contact(contact)
-    end
+    print_phonebook(contacts)
 
     print "Ingrese el ID del contacto que desea editar: "
     id = gets.chomp.to_i
@@ -151,7 +167,13 @@ while option != 5
     contacts = edit_contact(contacts, id)
 
   when 4
-    puts "Vamos a eliminar un nuevo contacto"
+    puts "Opción 3: Eliminar contacto"
+    print_phonebook(contacts)
+
+    print "Ingrese el ID del contacto que desea eliminar: "
+    id = gets.chomp.to_i
+
+    destroy_contact(contacts, id)
   when 5
     puts "Bye bye!"
   else
