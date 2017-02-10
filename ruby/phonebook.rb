@@ -153,10 +153,10 @@ while option != 5
     puts "Vamos a buscar un nuevo contacto"
   when 2
     puts "Opción 2: Crear contacto"
-    contacts = create_contact(contacts)
+    create_contact(contacts)
 
     puts "El contacto ha sido creado con éxito!"
-    print_contact(contacts.last)
+    contacts = print_contact(contacts.last)
   when 3
     puts "Opción 3: Editar contacto"
     print_phonebook(contacts)
